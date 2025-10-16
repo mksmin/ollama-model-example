@@ -28,9 +28,12 @@ class FastapiIdea(BaseModel):
     short_description: str = Field(
         description="The short description of the app: should contain a couple of sentences"
     )
-    topics: list[str] = Field(
-        description="The topics of the app: should be a list of strings. From 8 to 10 topics for the app using"
+    details: str = Field(
+        description="The details of the app: should contain a couple of sentences about functions of app"
     )
+    # topics: list[str] = Field(
+    #     description="The topics of the app: should be a list of strings. From 8 to 10 topics for the app using"
+    # )
 
 
 class FastapiIdeasResponse(BaseModel):
@@ -78,8 +81,10 @@ chain_with_struct = prompt_template_with_context | model_with_struct
 
 model_for_video_ideas = llm.with_structured_output(FastapiIdeasResponse)
 fastapi_ideas_chain = prompt_template_with_context | model_for_video_ideas
-ideas_context = "Senior python developer, every days affirmations, tasks tracker"
-ideas_query = "Please create three fastapi ideas for beginners about using LLM un Python web applications using langchain"
+ideas_context = (
+    "Senior python developer, every days affirmations, tasks tracker, 10 ideas"
+)
+ideas_query = "Please create fastapi ideas for beginners about using LLM un Python web applications using langchain. Please give at least 10 ideas "
 
 if __name__ == "__main__":
     # answer = llm.invoke(prepared_prompt)
@@ -111,4 +116,4 @@ if __name__ == "__main__":
         print()
         print(idea.title)
         print(idea.short_description)
-        print(idea.topics)
+        print(idea.details)

@@ -2,3 +2,5 @@
 ollama-model-example.iml
 gigaide.properties
 data
+.env
+models
